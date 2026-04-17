@@ -1,0 +1,1 @@
+To address the remote code execution vulnerability in Flowise (CVE-2025-59528), in environments where /bin/bash is missing or /dev/tcp is disabled, use the built-in net module in Node.js to gain a shell.
